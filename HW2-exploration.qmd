@@ -1,7 +1,14 @@
 ---
 title: "Homework #2 - Data Exploration"
 author: "Jordan Sibley"
-format: html
+date: 2025-02-04
+execute: 
+  eval: true
+  message: false
+  warning: false
+format:
+  html:
+    embed-resources: true
 ---
 
 ## Description
@@ -10,350 +17,226 @@ The purpose of this document is to begin to work with the data for the final pro
 
 ## Set Up
 
-#### Load packages
+### Load packages
 
 ```{r}
 library(tidyverse)
 library(here)
-library(sf)
 library(janitor)
+library(gridExtra)
 ```
 
-#### Read in Data
+### Read in Data
 
 **About the data**
 
-1.  [Shorelines and island boundaries for the Atlantic barrier islands of Virginia, 1851-2017](https://www.vcrlter.virginia.edu/cgi-bin/showDataset.cgi?docid=knb-lter-vcr.330)
+1.  Kelp Data: SBC LTER: Reef: Kelp Forest Community Dynamics: Abundance and size of Giant Kelp (Macrocystis Pyrifera), ongoing since 2000. https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.18
 
--   About: Spatial data that shows the position of the shoreline of the barrier islands of the Eastern shore of Virginia from 1851 to 2017. The historical data comes from historical NOS t-sheets and the more recent data comes from a combination of sources such as aerial photos, satelite imagery, and LiDAR assessments.
--   Data name and type: `VBI-allshores.gdb` Geodatabase
--   Data citation: Robbins, M.G. and CJ. Hein. 2017. Shorelines and island boundaries for the Atlantic barrier islands of Virginia, 1851-2017 ver 1. Environmental Data Initiative. https://doi.org/10.6073/pasta/69c10fdd9b27e43168f24ca8ef293dc7
+2.  Invertebrate Data: SBC LTER: Reef: Kelp Forest Community Dynamics: Invertebrate and algal density. https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.19
 
-2.  [Synthesis of Sea level rise and carbon accumulation rates in United States tidal wetlands](https://www.vcrlter.virginia.edu/cgi-bin/showDataset.cgi?docid=knb-lter-vcr.323)
+3.  Fish Data: SBC LTER: Reef: Kelp Forest Community Dynamics: Fish abundance. https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.17
 
--   About: This data contains the soil carbon accumulation rates and and environmental parameters (RSLR, tide range, mean annual temperature, precipitation)from across the US.
--   Data name and type: `HerbertDatabase.csv`
--   Data Citation: Kirwan, M.L., ER. Herbert and L. Windham-Myers. 2019. Synthesis of Sea level rise and carbon accumulation rates in United States tidal wetlands ver 3. Environmental Data Initiative. https://doi.org/10.6073/pasta/a05eda62baa46677a6b1e8540ebab5a9
+Metadata
 
-3.  [Marsh to Upland: Vegetation Monitoring in Coastal Virginia, 2018-2022](https://www.vcrlter.virginia.edu/cgi-bin/showDataset.cgi?docid=knb-lter-vcr.286)
+4.  SBC LTER: Reef: Master species list. https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.120
 
--   About: This dataset includes data from vegetation plots along a marsh to upland gradient in three salt-marshes along the Eastern Shore of Virginia. There are three different datasets that include different vegetation types: shrub, tree, and non-woody vegetation. Additionally, there is a dataset that includes the location of the plots.
-- Data name and type: `Shrubs.csv`, `Trees.csv`, `NonWoody.csv`, `PlotLocations.csv`
+**Temporal & Geographic Info**
 
+Time: 2000-08-01 to 2024-07-30
 
-For the sea-level carbon accumulation data, and vegetation data, I can't just download the csv files, I read in the data with code provided from the EDI repository website. I am going to run the code, and then save it as a csv file so I don't have to run it everytime. 
+Sites:
+
+Protected Sites
+
+-   NAPL: Naples Reef
+-   IVEE: Isla Vista (IV)
+
+Non-Protected Sites
+
+-   ABUR: Arroyo Burro Reef
+
+-   AHND: Arroyo Hondo Reef
+
+-   AQUE: Arroyo Quemado Reef
+
+-   BULL: Builto
+
+-   CARP: Carpinteria Reef
+
+-   GOLB: Goleta Bay
+
+-   MOHK: Mohawk Reef
+
+-   SCDI: Santa Cruz Island, Diablo (Wont include)
+
+-   SCTW: Santa Cruz Island, Twin Harbor West (Wont include)
+
 ```{r}
-# Sea level rise and carbon accumulation data ----
-# Code provided for reading in and summarizing all data tables in database
-infile1 <- trimws("https://www.vcrlter.virginia.edu/cgi-bin/fetchdataVCR.cgi/1/VCR21319/HerbertDatabase_06302020.csv") 
-infile1 <-sub("^https","http",infile1)
-# This creates a tibble named: slr_carbon
-dt0 <-read_delim(infile1  
-                ,delim=","   
-                ,skip=23 
-                    ,quote='"'  
-                    , col_names=c( 
-                        "MEASUREMENT",   
-                        "SOURCE",   
-                        "REFERENCES",   
-                        "REGION",   
-                        "LATITUDE",   
-                        "LONGITUDE",   
-                        "C_ACCUM_RATE",   
-                        "SEDIMENT_ACCRET_RATE",   
-                        "REL_SEA_LEVEL_RISE",   
-                        "TEMPERATURE_MEAN_ANNUAL",   
-                        "PRECIPITATION_MEAN_ANNUAL",   
-                        "VEG_TYPE",   
-                        "SOC_DENSITY"   ), 
-                    col_types=list(
-                        col_number() ,  
-                        col_character(),  
-                        col_character(),  
-                        col_character(), 
-                        col_character(), 
-                        col_number() , 
-                        col_number() , 
-                        col_number() , 
-                        col_number() , 
-                        col_number() , 
-                        col_number() ,  
-                        col_character(), 
-                        col_number() ), 
-                        na=c(" ",".","NA",""))
-# convert to csv file 
-#readr::write_csv(dt0, here::here("data", "HerbertDatabase.csv"))
+# Read in SBC LTER datasets 
+kelp_all <- read_csv(here::here('data', 'Annual_Kelp_All_Years_20240823.csv'))
 
-# ------------------------------------------------------------------------------
-# Vegetation data ----
-# Shrubs 
-infile1 <- trimws("https://www.vcrlter.virginia.edu/cgi-bin/fetchdataVCR.cgi/1/VCR18281/Shrubs.csv") 
-infile1 <-sub("^https","http",infile1)
-# This creates a tibble named: dt1 
-	dt1 <-read_delim(infile1  
-                ,delim=","   
-                ,skip=22 
-                    ,quote='"'  
-                    , col_names=c( 
-                        "Site",   
-                        "Date",   
-                        "Zone",   
-                        "Transect_number",   
-                        "Shrub_ID",   
-                        "Species",   
-                        "Trunk_diam_at_2cm",   
-                        "Canopy_ht",   
-                        "Canopy_wth_m_1",   
-                        "Canopy_wth_m_2",   
-                        "Shrub_health_Description",   
-                        "notes"   ), 
-                    col_types=list( 
-                        col_character(),  
-                        col_date("%Y-%m-%d"),   
-                        col_character(), 
-                        col_number() ,  
-                        col_character(),  
-                        col_character(), 
-                        col_number() , 
-                        col_number() , 
-                        col_number() , 
-                        col_number() ,  
-                        col_character(),  
-                        col_character()), 
-                        na=c(" ",".","NA","")  )
-                        
-                    
-# Convert Missing Values to NA for individual vectors 
-dt1$Trunk_diam_at_2cm <- ifelse((trimws(as.character(dt1$Trunk_diam_at_2cm))==trimws("NA")),NA,dt1$Trunk_diam_at_2cm)               
-suppressWarnings(dt1$Trunk_diam_at_2cm <- ifelse(!is.na(as.numeric("NA")) & (trimws(as.character(dt1$Trunk_diam_at_2cm))==as.character(as.numeric("NA"))),NA,dt1$Trunk_diam_at_2cm))
-dt1$Canopy_ht <- ifelse((trimws(as.character(dt1$Canopy_ht))==trimws("NA")),NA,dt1$Canopy_ht)               
-suppressWarnings(dt1$Canopy_ht <- ifelse(!is.na(as.numeric("NA")) & (trimws(as.character(dt1$Canopy_ht))==as.character(as.numeric("NA"))),NA,dt1$Canopy_ht))
-dt1$Canopy_wth_m_1 <- ifelse((trimws(as.character(dt1$Canopy_wth_m_1))==trimws("NA")),NA,dt1$Canopy_wth_m_1)               
-suppressWarnings(dt1$Canopy_wth_m_1 <- ifelse(!is.na(as.numeric("NA")) & (trimws(as.character(dt1$Canopy_wth_m_1))==as.character(as.numeric("NA"))),NA,dt1$Canopy_wth_m_1))
-dt1$Canopy_wth_m_2 <- ifelse((trimws(as.character(dt1$Canopy_wth_m_2))==trimws("NA")),NA,dt1$Canopy_wth_m_2)               
-suppressWarnings(dt1$Canopy_wth_m_2 <- ifelse(!is.na(as.numeric("NA")) & (trimws(as.character(dt1$Canopy_wth_m_2))==as.character(as.numeric("NA"))),NA,dt1$Canopy_wth_m_2))
-                    
-                
-# Observed issues when reading the data. An empty list is good!
-problems(dt1) 
-# Here is the structure of the input data tibble: 
-glimpse(dt1) 
-# And some statistical summaries of the data 
-summary(dt1) 
-# Get more details on character variables
-                     
-summary(as.factor(dt1$Site)) 
-summary(as.factor(dt1$Zone)) 
-summary(as.factor(dt1$Shrub_ID)) 
-summary(as.factor(dt1$Species)) 
-summary(as.factor(dt1$Shrub_health_Description)) 
-summary(as.factor(dt1$notes)) 
+invert_all <- read_csv(here::here('data', 'Annual_Quad_Swath_All_Years_20240823.csv'))
 
-# Write to csv
-#readr::write_csv(dt1, here::here("data", "veg_data", "Shrubs.csv"))
+fish_all <- read_csv(here::here('data', 'Annual_fish_comb_20240823.csv'))
 
-# -----------------------------------------------------------------------------
-# Trees 
-infile2 <- trimws("https://www.vcrlter.virginia.edu/cgi-bin/fetchdataVCR.cgi/2/VCR18281/Trees.csv") 
-infile2 <-sub("^https","http",infile2)
-# This creates a tibble named: dt2 
-	dt2 <-read_delim(infile2  
-                ,delim=","   
-                ,skip=22 
-                    ,quote='"'  
-                    , col_names=c( 
-                        "Site",   
-                        "Date",   
-                        "Zone",   
-                        "Transect_number",   
-                        "Tree_ID",   
-                        "Species",   
-                        "Circumference",   
-                        "DBH",   
-                        "Percent_canopy_death",   
-                        "Alive_or_Dead",   
-                        "notes"   ), 
-                    col_types=list( 
-                        col_character(),  
-                        col_date("%Y-%m-%d"),   
-                        col_character(), 
-                        col_number() ,  
-                        col_character(),  
-                        col_character(), 
-                        col_number() , 
-                        col_number() , 
-                        col_number() ,  
-                        col_character(),  
-                        col_character()), 
-                        na=c(" ",".","NA","")  )
-                        
-                    
-# Convert Missing Values to NA for individual vectors 
-dt2$Percent_canopy_death <- ifelse((trimws(as.character(dt2$Percent_canopy_death))==trimws("NA")),NA,dt2$Percent_canopy_death)               
-suppressWarnings(dt2$Percent_canopy_death <- ifelse(!is.na(as.numeric("NA")) & (trimws(as.character(dt2$Percent_canopy_death))==as.character(as.numeric("NA"))),NA,dt2$Percent_canopy_death))
-                    
-                
-# Observed issues when reading the data. An empty list is good!
-problems(dt2) 
-# Here is the structure of the input data tibble: 
-glimpse(dt2) 
-# And some statistical summaries of the data 
-summary(dt2) 
-# Get more details on character variables
-                     
-summary(as.factor(dt2$Site)) 
-summary(as.factor(dt2$Zone)) 
-summary(as.factor(dt2$Tree_ID)) 
-summary(as.factor(dt2$Species)) 
-summary(as.factor(dt2$Alive_or_Dead)) 
-summary(as.factor(dt2$notes)) 
-
-# Write to CSV 
-#readr::write_csv(dt2, here::here("data", "veg_data", "Trees.csv"))
-
-# ------------------------------------------------------------------------------
-# Non woody veg 
-infile3 <- trimws("https://www.vcrlter.virginia.edu/cgi-bin/fetchdataVCR.cgi/3/VCR18281/NonWoody.csv") 
-infile3 <-sub("^https","http",infile3)
-# This creates a tibble named: dt3 
-	dt3 <-read_delim(infile3  
-                ,delim=","   
-                ,skip=22 
-                    ,quote='"'  
-                    , col_names=c( 
-                        "Site",   
-                        "Date",   
-                        "Zone",   
-                        "Transect_number",   
-                        "Plot_ID",   
-                        "Species",   
-                        "Cover"   ), 
-                    col_types=list( 
-                        col_character(),  
-                        col_date("%Y-%m-%d"),   
-                        col_character(), 
-                        col_number() ,  
-                        col_character(),  
-                        col_character(), 
-                        col_number() ), 
-                        na=c(" ",".","NA","")  )
-                    
-                
-# Observed issues when reading the data. An empty list is good!
-problems(dt3) 
-# Here is the structure of the input data tibble: 
-glimpse(dt3) 
-# And some statistical summaries of the data 
-summary(dt3) 
-# Get more details on character variables
-                     
-summary(as.factor(dt3$Site)) 
-summary(as.factor(dt3$Zone)) 
-summary(as.factor(dt3$Plot_ID)) 
-summary(as.factor(dt3$Species)) 
-
-# Write to CSV 
-#readr::write_csv(dt3, here::here("data", "veg_data", "NonWoody.csv"))
-
-# ------------------------------------------------------------------------------
-# Plot Locations 
-infile4 <- trimws("https://www.vcrlter.virginia.edu/cgi-bin/fetchdataVCR.cgi/4/VCR18281/PlotLocations.csv") 
-infile4 <-sub("^https","http",infile4)
-# This creates a tibble named: dt4 
-	dt4 <-read_delim(infile4  
-                ,delim=","   
-                ,skip=22 
-                    ,quote='"'  
-                    , col_names=c( 
-                        "SITE",   
-                        "NAME",   
-                        "HABITAT",   
-                        "LONG",   
-                        "LAT"   ), 
-                    col_types=list( 
-                        col_character(),  
-                        col_character(), 
-                        col_number() , 
-                        col_number() , 
-                        col_number() ), 
-                        na=c(" ",".","NA","")  )
-                    
-                
-# Observed issues when reading the data. An empty list is good!
-problems(dt4) 
-# Here is the structure of the input data tibble: 
-glimpse(dt4) 
-# And some statistical summaries of the data 
-summary(dt4) 
-summary(as.factor(dt4$SITE)) 
-summary(as.factor(dt4$NAME)) 
-
-# Write to CSV 
-#readr::write_csv(dt4, here::here("data", "veg_data", "PlotLocations.csv"))
-
-# Remove variables 
-rm(dt0, dt1, dt2, dt3, dt4)
-```
-
-
-### Read in Data
-```{r}
-# Read in shoreline data ----
-shorelines <- st_read(here::here('data', 'VBI-allshores.gdb'))
-
-# Read in sea level rise data ---- 
-slr_carbon <- read_csv(here::here('data', 'HerbertDatabase.csv'))
-
-# Read in vegetation data 
-shrubs <- read_csv(here::here('data', 'veg_data', 'Shrubs.csv'))
-trees <- read_csv(here::here('data', 'veg_data', 'Trees.csv'))
-nonwoody <- read_csv(here::here('data', 'veg_data', 'NonWoody.csv'))
-plotlocations <- read_csv(here::here('data', 'veg_data', 'PlotLocations.csv'))
+species_list <- read_csv(here::here('data', 'SBCLTER_Species_List_Master_20210113.csv'))
 
 ```
 
+## Data Cleaning
 
+**Plan**
 
-## Shoreline data 
+-   Remove SCI sites
+-   Convert `-99999` values to `NA`
+-   Make columns lowercase
+
+Create new datasets for:
+
+-   Purple Urchins
+-   Spiny lobsters
+-   CA Sheephead
+
 ```{r}
-# Clean data 
-shorelines <- shorelines |> 
-  select(-DATE_) |> 
+# Clean kelp data 
+kelp_clean <- kelp_all |> 
+  filter(SITE != "SCDI" & SITE != "SCTW") |> 
+  naniar::replace_with_na(replace = list(FRONDS = -99999)) |> 
+  naniar::replace_with_na(replace = list(HLD_DIAM = -99999)) |> 
   janitor::clean_names()
-```
 
+# Clean invert data 
+invert_clean <- invert_all |> 
+  filter(SITE != "SCDI" & SITE != "SCTW") |> 
+  naniar::replace_with_na(replace = list(SIZE = -99999)) |> 
+  janitor::clean_names()
 
-```{r}
-# Plot shoreline change over time 
-
-ggplot() +
-  # Plot other years with lower alpha
-  geom_sf(data = shorelines |> filter(!year %in% c(1888, 2017)), 
-          aes(color = "Other"), alpha = 0.4, size = 0.8) +
-  # Highlight 1888 in red and 2017 in blue with full opacity
-  geom_sf(data = shorelines |> filter(year == 1888), 
-          aes(color = "1888"), size = 1.2) +
-  geom_sf(data = shorelines |> filter(year == 2017), 
-          aes(color = "2017"), size = 1.2) +
-  # Define manual colors and legend labels
-  scale_color_manual(values = c("1888" = "red", 
-                                "2017" = "blue", 
-                                "Other" = "gray70"),
-                     name = "Year",
-                     labels = c("1888" = "1888 Shoreline", 
-                                "2017" = "2017 Shoreline", 
-                                "Other" = "Other Years")) +
-  theme_minimal() +
-  labs(title = "Virginia Barrier Islands Shoreline Change")
-
-```
-
-
-## Sea Level Rise & Carbon accumulation 
-```{r}
-# Clean data 
-slr_carbon <- slr_carbon |> 
+# Clean fish data 
+fish_clean <- fish_all |> 
+  filter(SITE != "SCDI" & SITE != "SCTW") |> 
+  naniar::replace_with_na(replace = list(SIZE = -99999)) |> 
+  naniar::replace_with_na(replace = list(COUNT = -99999)) |> 
   janitor::clean_names()
   
+
+# Purple Urchins 
+purp_urchin <- invert_clean |> 
+  filter(scientific_name == "Strongylocentrotus purpuratus") 
+
+# Spiny lobsters
+lobster <- invert_clean |> 
+  filter(scientific_name == "Panulirus interruptus")
+
+# CA sheephead
+sheephead <- fish_clean |> 
+  filter(scientific_name == "Semicossyphus pulcher")
+
 ```
 
+## Exploratory Plots
+
+### 1. Total counts of four species over time
+
+```{r}
+# Group by year to get total count 
+kelp_total_count <- kelp_clean |> 
+  group_by(year) |> 
+  summarise(total_count = n()) |> 
+  mutate(species = "Giant Kelp")
+
+purp_urchin_total_count <- purp_urchin |> 
+  group_by(year) |> 
+  summarise(total_count = sum(count)) |> 
+  mutate(species = "Purple Urchin")
+
+lobster_total_count <- lobster |> 
+  group_by(year) |> 
+  summarise(total_count = sum(count)) |> 
+  mutate(species = "Spiny Lobster")
+
+sheephead_total_count <- sheephead |> 
+  group_by(year) |> 
+  summarise(total_count = sum(count)) |> 
+  mutate(species = "Sheephead")
+
+# New dataframe with all the total count data 
+spp_all_counts <- bind_rows(kelp_total_count, 
+                            purp_urchin_total_count, 
+                            lobster_total_count, 
+                            sheephead_total_count)
+
+# Plot count over time Giant kelp & Purple urchin 
+p1 <- spp_all_counts |> 
+  filter(species == "Giant Kelp" | species == "Purple Urchin") |> 
+  ggplot(aes(x = year, y = total_count, color = species)) + 
+  geom_point() + 
+  geom_line() +
+  scale_color_manual(values = c("Giant Kelp" = "darkgreen",
+                                "Purple Urchin" = "purple")) + 
+  theme_minimal()
+
+p2 <- spp_all_counts |> 
+  filter(species == "Sheephead" | species == "Spiny Lobster") |> 
+  ggplot(aes(x = year, y = total_count, color = species)) + 
+  geom_point() + 
+  geom_line() + 
+  scale_color_manual(values = c("Sheephead" = "grey40", 
+                                "Spiny Lobster" = "darkred")) + 
+  theme_minimal()
+
+gridExtra::grid.arrange(p1, p2, ncol = 1)
+
+```
+
+### 2. Kelp densities at the sites
+
+```{r}
+kelp_density <- kelp_clean |> 
+  group_by(year, site, transect) |> 
+  summarise(count = n())
+
+
+# Violin plot for 2015-2024
+kelp_density |> 
+  filter(year >= 2015) |> 
+  ggplot(aes(x = site, y = count)) + 
+  geom_col(fill = "darkgreen") + 
+  theme_minimal()
+```
+
+It might be fun to do the bar graph and visualize it with giant kelp fronds!
+
+### 3. Kelp and urchin counts at each site bar graph
+
+```{r}
+kelp_compare <- kelp_clean |> 
+  group_by(year, site, common_name) |> 
+  summarise(total_count = n())
+
+urchin_compare <- purp_urchin |> 
+  group_by(year, site, common_name) |> 
+  summarise(total_count = sum(count))
+
+kelp_urch_compare <- bind_rows(kelp_compare, urchin_compare)
+
+# Bar chart 
+ggplot(kelp_urch_compare, aes(x = site, y = total_count, fill = common_name)) + 
+  geom_col(position = "dodge") + 
+  scale_fill_manual(values = c("Giant Kelp" = "darkgreen",
+                               "Purple Urchin" = "purple")) + 
+  theme_minimal()
+```
+
+## Questions to Respond to
+
+1.  What have you learned about your data? Have any potentially interesting patterns emerged?
+
+After plotting some of my data, it seems that there could be some potential relationships between the species abundance trends over time. One thing I like about the datasets is how easy is it to combine them. The columns are clearing and uniformly named and the sites are the same.
+
+2.  In HW #1, you outlined some questions that you wanted to answer using these data. Have you made any strides towards answering those questions? If yes, how so? If no, what next steps do you need to take (e.g. I need to create X plot type, I still need to track down Y data, I need to restructure existing data so that you can visualize it in Z ways, etc.)?
+
+I believe I am moving in the right direction to produce cohesive visualizations for my infographic. I don't think I will need any additional data, unless I think of a specific visualization that would require it.
+
+3.  What challenges do you foresee encountering with your data? These can be data wrangling and / or visualization challenges.
+
+One challenge I think I will face is knowing how much information to include and when to claim a relation is present or not. Additionally, some of the species abundance trends might be related to environmental variables or fishing pressure, which is not data I was intending on including.
