@@ -1,12 +1,22 @@
 ---
 title: "HW3-drafting-viz"
-format: html
+author: "Jordan Sibley"
+date: last-modified
+execute: 
+  eval: true
+  message: false
+  warning: false
+format:
+  html:
+    toc: true
 ---
 ## Set up 
 ```{r}
 # libraries 
 library(tidyverse)
 library(showtext)
+library(ggrepel)
+
 
 # Import fonts 
 font_add_google(name = "Syne", family = "syne")
@@ -20,23 +30,34 @@ font_add_google(name = "Inter", family = "inter")
 
 1. Which option do you plan to pursue? It’s okay if this has changed since HW #1.
 
-
+**I still plan to do the infographic.** 
 
 
 2. Restate your question(s). Has this changed at all since HW #1? If yes, how so?
 
-
+**What are the kelp forest ecosystem dynamics in the Santa Barbara Channel? **
 
 3. Explain which variables from your data set(s) you will use to answer your question(s), and how.
 
-
+**The variables I care about from the data sets are year and count. All of the data sets are from the same time frame (2000-2024) with samples taken during the fall months and contain some column that involves some kind of count variable. For urchin, sheep head, and lobster, there is a column `count` that includes the number of species counted per transect per sample date per site. For the kelp data, there isn't a specific count column, but the number of kelp plants samples can be extracted by grouping the site and year and adding the number of rows since each row gives information about an individual kelp frond. **
 
 
 4. In HW #2, you created some exploratory data viz to better understand your data. You may already have some ideas of how you plan to formally visualize your data, but it’s incredibly helpful to look at visualizations by other creators for inspiration. Find at least two data visualizations that you could (potentially) borrow / adapt pieces from. Link to them or download and embed them into your .qmd file, and explain which elements you might borrow (e.g. the graphic form, legend design, layout, etc.).
 
+![Source: UNEP https://www.grida.no/resources/15760 ](images/infograph_inspo.jpg)
+
+I like this kelp forest info graphic! One part I like about is the simple colors and color species drawings. I also like the species composition plot at the bottom. This was a bit of a later find, but maybe I could explore if a plot like this would be a good idea for my info graphic. 
+
+
+![Source: https://github.com/Ijeamakaanyene/tidytuesday ](images/palmer_penguins.png)
+
+I like how this plot takes something simple like a stacked bar chart, and makes it more interesting through the use of icons. I hope to include species icons/drawings in my info graphic to make my visualization more creative. 
+
 
 5. Hand-draw your anticipated visualizations, then take a photo of your drawing(s) and embed it in your rendered .qmd file – note that these are not exploratory visualizations, but rather your plan for your final visualizations that you will eventually polish and submit with HW #4. You should have:
 a sketch of your infographic (which should include at least three component visualizations) if you are pursuing option 1
+
+![](images/infograph_layout.png)
 
 
 6. Mock up all of your hand drawn visualizations using code. We understand that you will continue to iterate on these into HW #4 (particularly after receiving feedback), but by the end of HW #3, you should:
@@ -48,11 +69,17 @@ a sketch of your infographic (which should include at least three component visu
 - create a presentable / aesthetically-pleasing theme (e.g. (re)move gridlines / legends as appropriate, adjust font sizes, etc.)
 
 
-Fonts for plots
+
+## Infographic theme plan 
+
+#### Fonts for plots
 - Titles = Syne 
 - plot font = Inter
 
-Palette 
+#### Palette 
+
+Confirmed color blind friendly! 
+
 ```{r}
 kelp_pal <- c("kelp" = "#8A8E3A", 
               "urchin" = "#7E5AA0", 
@@ -69,6 +96,8 @@ monochromeR::view_palette(kelp_pal)
 
 
 ## Data 
+
+All data comes from the SBC LTER Data Catalog 
 
 ```{r}
 # Read in SBC LTER datasets 
@@ -111,13 +140,15 @@ lobster <- invert_clean |>
 
 # CA sheephead
 sheephead <- fish_clean |> 
-  filter(scientific_name == "Semicossyphus pulcher")
+  filter(scientific_name == "Semicossyphus pulcher") |> 
+   filter(!is.na(count)) 
 
 ```
 
 
+## Plot 1. Timeseries of kelp and urchins 
 
-plot of kelp and urchin in naples 
+
 ```{r}
 #.......................Prep data for plot.......................
 # Filter to NAPL and group by year 
@@ -144,8 +175,8 @@ napl_spp <- bind_rows(kelp_total_count_NAPL, urchin_total_count_NAPL)
  #.......................Plot spp over time.......................
 ggplot(napl_spp, aes(x = year, y = total_count, color = species)) + 
   # timeseries plot 
-  geom_point(size = 0.4) + 
-  geom_line() +
+  geom_point(size = 0.9) + 
+  geom_line(linewidth = 1) +
   scale_color_manual(values = c("Giant Kelp" = "#8A8E3A",
                                 "Purple Urchin" = "#7E5AA0")) + 
   # labels 
@@ -180,48 +211,19 @@ ggplot(napl_spp, aes(x = year, y = total_count, color = species)) +
   )
 ```
 
-Need to increase margin 
+Things I might do/change for final: 
+
+- Find some valuable time points to highlight (MPA established, marine heat wave etc.)
+- Rework the subtitle and maybe pick important words to highlight
 
 
 
+
+## Plot 2. Kelp densities at the sites
+
+Sites to keep: NAPL, IVEE, GOLB, ABUR, MOHK, CARP 
 ```{r}
-# Filter to years larger than equal to 2006, can graph all three species 
-kelp_2006 <- kelp_clean |> 
-  group_by(year) |> 
-  summarise(total_count = n()) |> 
-  mutate(species = "Giant Kelp") |> 
-  filter(year >= 2006)
-
-urchin_2006 <- purp_urchin |> 
-  group_by(year) |> 
-  summarise(total_count = sum(count)) |> 
-  mutate(species = "Purple Urchin") |> 
-  filter(year >= 2006)
-
-lobster_2006 <- lobster |> 
-  group_by(year) |> 
-  summarise(total_count = sum(count)) |> 
-  mutate(species = "Spiny Lobster") |> 
-  filter(year >= 2006)
-
-sheephead_2006 <- sheephead |>
-  group_by(year) |> 
-  summarise(total_count = sum(count)) |> 
-  mutate(species = "Sheephead") |> 
-  filter(year >= 2006)
-
-# Combine 
-spp_all_2006 <- bind_rows(kelp_2006, 
-                          urchin_2006, 
-                          lobster_2006, 
-                          sheephead_2006)
-```
-
-
-## 2. Kelp densities at the sites
-
-# Sites to keep: NAPL, IVEE, GOLB, ABUR, MOHK, CARP 
-```{r}
+# Filter kelp data for plot 
 kelp_bar <- kelp_clean |> 
   filter(site %in% c('NAPL', 'IVEE', 'GOLB', 'ABUR', 'MOHK', 'CARP')) |> 
   filter(year >= 2012) |> 
@@ -244,7 +246,7 @@ kelp_bar <- kelp_clean |>
 #| fig-height: 6
 
  #..............Bar plot of kelp abundance per LTER site......................
-barplot <- ggplot(kelp_bar, aes(x = site_name, y = total_count, label = protection)) + 
+ggplot(kelp_bar, aes(x = site_name, y = total_count, label = protection)) + 
   # bar plot separated by protection level 
   geom_col(fill = kelp_pal["sub3"]) + 
   facet_grid(~ protection, scales="free", space = "free", switch = "x") +
@@ -285,23 +287,170 @@ barplot <- ggplot(kelp_bar, aes(x = site_name, y = total_count, label = protecti
     plot.margin = margin(10, 25, 10, 15)  # Top, Right, Bottom, Left
     )
 
-# ggsave(
-#   filename = here::here("plots", "kelp_barplot.png"),
-#   plot = barplot,
-#   device = "png",
-#   width = 9,
-#   height = 6,
-#   unit = "in")
-
-barplot
 ```
 
+
+Here is what I imagine for the infographic.  I drew the kelp design in affinity designer and cropped or shorten it to fit in each of the bars. I might rework the drawing a bit but I like the way it turned out!
+
+I also don't know if I like the order of the sites on the x-axis. Maybe I could keep them in their separated groups, but reorder the sites based on where the show up on the map from west to east so it is easier to place them on the reference map. 
+
+![](images/kelp_barplot_draw.png)
+
+## Plot 3: Urchin abundances and one/or both of its predators
+
+I wasn't exactly sure my direction for this plot. I was struggling with figuring out to display information about sheephead and lobster against urchin abundances (and kelp?) but they are on very different scales with lobster and sheephead being much lower (makes sense higher trophic level)
+
+
+Ideas for how to present this information? 
+
+- proportion of species adjusted by year with largest population over time? (kind of like the opacity value in HW#1 viz)
+- percentage of total counts 
+- Stacked percentage bar chart 
+
+Suggestion: connected scatter plot like from the lecture in 5.1 
+
+X axis urchin abundance 
+y axis sheephead abundance
+plots annotated by year 
+
+```{r}
+#.......................Prep data for plot.......................
+# urchins, kelp, sheephead 
+urchin_abund <- purp_urchin |> 
+  group_by(year) |> 
+  summarise(urchin_count = sum(count)) 
+
+sheephead_abund <- sheephead |> 
+  group_by(year) |> 
+  summarise(sheephead_count = sum(count)) 
+
+lobster_abund <- lobster |> 
+  group_by(year) |> 
+  summarise(lobster_count = sum(count))
+
+# Join by year 
+urch_sheep_join <- inner_join(urchin_abund, sheephead_abund, by = "year")
+
+urch_shp_lobs_join <- inner_join(urch_sheep_join, lobster_abund, by = "year")
+
+# Try all years to begin but maybe filter to smaller year amount if it is two much to look at 
+```
+
+### Connected scatterplot of urchin and sheephead abundances
+```{r}
+# Filter to 2012-2024
+urch_sheep_join |> 
+  filter(year >= 2012) |> 
+  # scatter plot 
+  ggplot( aes(y = urchin_count, x = sheephead_count)) + 
+  geom_path(color = kelp_pal["sub"]) + 
+  geom_point(color = kelp_pal["title"]) +  
+  # label each point with year 
+  geom_text_repel(aes(label = year), size = 3, color = kelp_pal["title"], fontface = "bold") + 
+  
+  labs(y = "Purple Urchin abundance",
+       x = "CA Sheephead abundance",
+       title = "Purple Urchin vs CA Sheephead Abundance over time", 
+       subtitle = "Abundances are based on the cumulative observations at the six LTER sites.")+
+  
+  # theme elements 
+  theme_minimal() + 
+  theme(
+    
+     # plot text 
+    plot.title = element_text(size = 16, face = "bold", 
+                              family = "syne", color = kelp_pal["title"], hjust = 0.5), 
+    plot.subtitle = element_text(size = 11, family = "inter", 
+                                 color = kelp_pal["sub"], hjust = 0.5), 
+    axis.title = element_text(family = "inter", color = kelp_pal["sub"]),
+    axis.text = element_text(family = "inter", color = kelp_pal["sub2"]),
+    
+    # remove minor grid lines 
+    panel.grid.minor = element_blank(),
+    
+    # Change major grid lines to a dotted line and color
+    panel.grid.major = element_line(color = kelp_pal["sub2"], linetype = "dotted"),
+    
+    # panel background color 
+    plot.background = element_rect(fill = kelp_pal["background"]), 
+    
+    # adjust margins 
+    plot.margin = margin(10, 25, 10, 15)  # Top, Right, Bottom, Left
+  )
+```
+
+At first this plot looked crazy, but once I filtered to a smaller time frame and then swapped the x and y axis, now is follows a clearer path. Especially since the earliest time frame is on the left, it reads cleaner. Start to see that when urchin is high, sheephead is low and vice versa. 
+
+I am worried if this plot is maybe too confusing. However, since my previous plots are pretty simple maybe it could be ok? 
+
+If I do go forward with this plot, I also might change it from the total count of observations per year to the mean count (average count per site)
+
+
+### Alternative plot: Scatterplot with Trend Line (Sheepshead vs Urchin)
+
+```{r}
+# scatter plot with lm trend line 
+ggplot(urch_sheep_join, aes(x = sheephead_count, y = urchin_count)) +
+  geom_point(size = 3, color = kelp_pal["title"]) +
+  geom_smooth(method = "lm", se = FALSE, color = kelp_pal["sub2"]) +  # Linear trend line
+  
+  labs(
+    title = "Relationship Between Sheepshead & Urchin Abundance",
+    subtitle = "Update subtitle, something about relationship and trendline",
+    x = "Sheepshead Abundance",
+    y = "Urchin Abundance"
+  ) +
+  # theme elements 
+  theme_minimal() + 
+  theme(
+    
+    # plot text 
+    plot.title = element_text(size = 14, face = "bold", 
+                              family = "syne", color = kelp_pal["title"], hjust = 0.5), 
+    plot.subtitle = element_text(size = 11, family = "inter", 
+                                 color = kelp_pal["sub"], hjust = 0.5), 
+    axis.title = element_text(family = "inter", color = kelp_pal["sub"]),
+    axis.text = element_text(family = "inter", color = kelp_pal["sub2"]),
+    
+    # remove minor grid lines 
+    panel.grid.minor = element_blank(),
+    
+    # Change major grid lines to a dotted line and color
+    panel.grid.major = element_line(color = kelp_pal["sub2"], linetype = "dotted"),
+    
+    # panel background color 
+    plot.background = element_rect(fill = kelp_pal["background"]), 
+    
+    # adjust margins 
+    plot.margin = margin(10, 25, 10, 15)  # Top, Right, Bottom, Left
+  )
+
+```
+
+
+I feel that these plots are effective in showing the predator prey relationship, but I wonder if they are maybe a bit disconnected from the other plots and maybe a bit too statistical. However, if the previous plot type is too much this might be a good alternative. 
 
 
 7. Answer the following questions:
 
 a. What challenges did you encounter or anticipate encountering as you continue to build / iterate on your visualizations in R? If you struggled with mocking up any of your three visualizations (from #6, above), describe those challenges here.
 
+**I described some of my challenges with the third plot above. Another issue I was running into is figuring out a way to effective export my plots. I tried a couple strategies from the Week 6 discussion section, but I ran into some weird problems. I found it was easier for me to just render the doc and then save the plot by right clicking on it. I want to dive a bit deeper into that discussion section material to learn how to export my plots.** 
+
 b. What ggplot extension tools / packages do you need to use to build your visualizations? Are there any that we haven’t covered in class that you’ll be learning how to use for your visualizations?
 
+**To make the connected scatterplot, I used a package called `ggrepel` to make the labels of the year. **
+
+
 c. What feedback do you need from the instructional team and / or your peers to ensure that your intended message is clear?
+
+**I would love some feedback on my third plot! Also I had gotten some feedback that my color scheme might be a bit dark. I kind of like the way it looks but if it truly is too dark it would be super easy to go in an adjust. **
+
+
+## Data Sources 
+
+1.  Kelp Data: SBC LTER: Reef: Kelp Forest Community Dynamics: Abundance and size of Giant Kelp (Macrocystis Pyrifera), ongoing since 2000. https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.18
+
+2.  Invertebrate Data: SBC LTER: Reef: Kelp Forest Community Dynamics: Invertebrate and algal density. https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.19
+
+3.  Fish Data: SBC LTER: Reef: Kelp Forest Community Dynamics: Fish abundance. https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.17
