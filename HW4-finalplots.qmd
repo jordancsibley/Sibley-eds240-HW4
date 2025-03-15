@@ -1,0 +1,298 @@
+---
+title: "HW4 final plots for info graph"
+format: html
+---
+
+
+
+## Set up 
+```{r}
+# libraries 
+library(tidyverse)
+library(showtext)
+library(ggrepel)
+
+
+# Import fonts 
+font_add_google(name = "Syne", family = "syne")
+font_add_google(name = "Inter", family = "inter")
+
+showtext_auto()
+```
+
+
+#### Palette 
+```{r}
+kelp_pal <- c("kelp" = "#8A8E3A", 
+              "urchin" = "#7E5AA0", 
+              "lobster" = "#B74548", 
+              "sheephead" = "#4F3742", 
+              "title" = "#D4EAED", 
+              "sub" = "#77C3CF", 
+              "sub2" = "#307C88",
+              "sub3" = "#25616A",
+              "background" = "#144A52")
+```
+
+
+
+## Data 
+
+```{r}
+# Read in SBC LTER datasets 
+kelp_all <- read_csv(here::here('data', 'Annual_Kelp_All_Years_20240823.csv'))
+
+invert_all <- read_csv(here::here('data', 'Annual_Quad_Swath_All_Years_20240823.csv'))
+
+fish_all <- read_csv(here::here('data', 'Annual_fish_comb_20240823.csv'))
+
+species_list <- read_csv(here::here('data', 'SBCLTER_Species_List_Master_20210113.csv'))
+
+# Clean kelp data 
+kelp_clean <- kelp_all |> 
+  filter(SITE != "SCDI" & SITE != "SCTW") |> 
+  naniar::replace_with_na(replace = list(FRONDS = -99999)) |> 
+  naniar::replace_with_na(replace = list(HLD_DIAM = -99999)) |> 
+  janitor::clean_names()
+
+# Clean invert data 
+invert_clean <- invert_all |> 
+  filter(SITE != "SCDI" & SITE != "SCTW") |> 
+  naniar::replace_with_na(replace = list(SIZE = -99999)) |> 
+  janitor::clean_names()
+
+# Clean fish data 
+fish_clean <- fish_all |> 
+  filter(SITE != "SCDI" & SITE != "SCTW") |> 
+  naniar::replace_with_na(replace = list(SIZE = -99999)) |> 
+  naniar::replace_with_na(replace = list(COUNT = -99999)) |> 
+  janitor::clean_names()
+  
+
+# Purple Urchins 
+purp_urchin <- invert_clean |> 
+  filter(scientific_name == "Strongylocentrotus purpuratus") 
+
+# Spiny lobsters
+lobster <- invert_clean |> 
+  filter(scientific_name == "Panulirus interruptus")
+
+# CA sheephead
+sheephead <- fish_clean |> 
+  filter(scientific_name == "Semicossyphus pulcher") |> 
+   filter(!is.na(count)) 
+
+```
+
+
+
+
+## Plot 1. Kelp densities at the sites
+
+```{r}
+# Filter kelp data for plot 
+kelp_bar <- kelp_clean |> 
+  filter(site %in% c('NAPL', 'IVEE', 'GOLB', 'ABUR', 'MOHK', 'CARP')) |> 
+  filter(year >= 2012) |> 
+  group_by(site, year) |> 
+  summarise(total_count = n()) |> 
+  mutate(protection = case_when(
+    site %in% c("GOLB", "ABUR", "MOHK", "CARP") ~ "non-MPA",
+    site %in% c("NAPL", "IVEE") ~ "MPA")) |> 
+  mutate(site_name = case_when(site == "GOLB" ~ "Goleta Beach",
+                               site == "ABUR" ~ "Arroyo Burro",
+                               site == "MOHK" ~ "Mohawk", 
+                               site == "CARP" ~ "Carpinteria Reef", 
+                               site == "NAPL" ~ "Naples", 
+                               site == "IVEE" ~ "Isla Vista"))
+
+# Define the custom order
+site_order <- c("Naples", "Isla Vista", "Goleta Beach", "Arroyo Burro", "Mohawk", "Carpinteria Reef")
+
+# Convert site_name to a factor with the specified levels
+kelp_bar$site_name <- factor(kelp_bar$site_name, levels = site_order)
+```
+
+
+Sites order based on map location: NAPL, IVEE, GOLB, ABUR, MOHK, CARP 
+```{r}
+#| fig-width: 9
+#| fig-height: 6
+
+ #..............Bar plot of kelp abundance per LTER site......................
+ggplot(kelp_bar, aes(x = site_name, y = total_count, label = protection)) + 
+  # bar plot separated by protection level 
+  geom_col(fill = kelp_pal["background"]) + 
+  
+  # labels 
+  labs(x = NULL, 
+       y = "Total Giant Kelp Individuals" ) +
+  
+  # theme elements 
+  theme_minimal () +  
+  theme(
+    # remove grid lines 
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    
+    # text elements 
+
+    axis.title.y = element_text(family = "inter", size = 13, color = kelp_pal["sub"]),
+    axis.text.x = element_text(family = "inter", size = 12.5, color = kelp_pal["sub"]),
+    axis.text.y = element_text(family = "inter", size = 10, color = kelp_pal["sub2"]), 
+
+     # panel background color 
+    plot.background = element_rect(fill = kelp_pal["background"]), 
+    
+     # adjust margins 
+    plot.margin = margin(10, 15, 10, 15)  # Top, Right, Bottom, Left
+    )
+
+#ggsave("plots/kelp_abundance_plot.pdf", width = 8, height = 6)
+```
+
+
+
+## Plot 2: Time series of urchin and kelp 
+
+In orginal plot I filtered to Naples, but i have realized that the single site and the combined sites look essentially the same 
+
+```{r}
+#.......................Prep data for plot.......................
+# Group by year 
+kelp_total_count_NAPL <- kelp_clean |> 
+  group_by(year) |> 
+  summarise(total_count = n()) |> 
+  mutate(species = "Giant Kelp")
+
+# Group by year  
+urchin_total_count_NAPL <- purp_urchin |> 
+  group_by(year) |> 
+  summarise(total_count = sum(count)) |> 
+  mutate(species = "Purple Urchin")
+
+# Bind rows
+timeseries_spp <- bind_rows(kelp_total_count_NAPL, urchin_total_count_NAPL)
+
+```
+
+
+
+```{r}
+ #.......................Plot spp over time.......................
+ggplot(timeseries_spp, aes(x = year, y = total_count, color = species)) + 
+  # timeseries plot 
+  geom_point(size = 0.9) + 
+  geom_line(linewidth = 1) +
+  scale_color_manual(values = c("Giant Kelp" = "#8A8E3A",
+                                "Purple Urchin" = "#7E5AA0")) + 
+  # labels 
+  labs(
+#    title = "Giant Kelp and Purple Urchin Abundance",
+#    subtitle = "Samples taken at Naples Reef, Goleta CA. Purple urchin is one of Giant Kelp's primary grazers. \nWhen urchin populations become too large, they can overgraze and essentially 'destroy' kelp forests.",
+    color = "Species",
+    x = NULL,
+    y = "Total individuals surveyed"
+  ) +
+  # theme elements 
+  theme_minimal() + 
+  theme(
+    # plot text 
+ #   plot.title = element_text(size = 14, face = "bold", family = "syne", color = kelp_pal["title"]), 
+#    plot.subtitle = element_text(size = 9, family = "inter", color = kelp_pal["sub"]), 
+    axis.title = element_text(family = "inter", color = kelp_pal["sub"]),
+    axis.text = element_text(family = "inter", color = kelp_pal["sub"]),
+    
+    # legend 
+    legend.title = element_text(size = 10, family = "inter", color = kelp_pal["sub"]), 
+    legend.text = element_text(size = 9, family = "inter", color = kelp_pal["sub"]), 
+    legend.position = "bottom", # Move the legend to the bottom
+    
+    # background color + grid 
+    plot.background = element_rect(fill = kelp_pal["background"]),
+    panel.grid.major = element_line(color = kelp_pal["sub3"]),
+    panel.grid.minor = element_blank(), # remove minor grid lines 
+    
+    # adjust margins 
+    plot.margin = margin(10, 25, 10, 10)  # Top, Right, Bottom, Left
+  )
+
+#ggsave("plots/timeseries_plot.pdf", width = 9, height = 6)
+```
+
+
+## Plot 3: Urchin abundances its predators (sheephead + lobsters)
+
+
+```{r}
+#.......................Prep data for plot.......................
+# urchins, kelp, sheephead 
+urchin_abund <- purp_urchin |> 
+  group_by(year) |> 
+  summarise(urchin_count = sum(count)) 
+
+sheephead_abund <- sheephead |> 
+  group_by(year) |> 
+  summarise(sheephead_count = sum(count)) 
+
+lobster_abund <- lobster |> 
+  group_by(year) |> 
+  summarise(lobster_count = sum(count))
+
+# Join by year 
+urch_sheep_join <- inner_join(urchin_abund, sheephead_abund, by = "year")
+
+all_spp <- inner_join(urch_sheep_join, lobster_abund, by = "year")
+
+# Create predator column + filter year 
+all_spp <- all_spp |> 
+  mutate(predator_sum = lobster_count + sheephead_count) |> 
+   filter(year >= 2012) 
+
+```
+
+
+```{r}
+# scatter plot 
+  ggplot(all_spp,  aes(y = urchin_count, x = predator_sum)) + 
+  geom_path(color = kelp_pal["sub"]) + 
+  geom_point(color = kelp_pal["title"]) +  
+  # label each point with year 
+  geom_text_repel(aes(label = year), size = 3, color = kelp_pal["title"], fontface = "bold") + 
+  
+  
+  labs(y = "Total urchin surveyed",
+       x = "Total lobsters and sheephead surveyed",
+#       title = "Purple Urchin vs CA Sheephead Abundance over time", 
+#       subtitle = "Abundances are based on the cumulative observations at the six LTER sites."
+)+
+  xlim(0, max(all_spp$predator_sum)) +
+  ylim(0, max(all_spp$urchin_count)) +
+  
+  # theme elements 
+  theme_minimal() + 
+  theme(
+    
+     # plot text 
+#    plot.title = element_text(size = 16, face = "bold", 
+#                              family = "syne", color = kelp_pal["title"], hjust = 0.5), 
+#    plot.subtitle = element_text(size = 11, family = "inter", 
+#                                 color = kelp_pal["sub"], hjust = 0.5), 
+    axis.title = element_text(family = "inter", color = kelp_pal["title"]),
+    axis.text = element_text(family = "inter", color = kelp_pal["sub"]),
+    
+    # remove minor grid lines 
+    panel.grid.minor = element_blank(),
+    
+    # Change major grid lines to a dotted line and color
+    panel.grid.major = element_line(color = kelp_pal["sub2"]),
+    
+    # panel background color 
+    plot.background = element_rect(fill = kelp_pal["background"]), 
+    
+    # adjust margins 
+    plot.margin = margin(10, 25, 10, 15)  # Top, Right, Bottom, Left
+  )
+ggsave("plots/scatter_plot.pdf", width = 8, height = 6)
+```
+

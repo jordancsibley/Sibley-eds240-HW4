@@ -221,7 +221,6 @@ Things I might do/change for final:
 
 ## Plot 2. Kelp densities at the sites
 
-Sites to keep: NAPL, IVEE, GOLB, ABUR, MOHK, CARP 
 ```{r}
 # Filter kelp data for plot 
 kelp_bar <- kelp_clean |> 
@@ -241,6 +240,7 @@ kelp_bar <- kelp_clean |>
 ```
 
 
+Sites order based on map location: NAPL, IVEE, GOLB, ABUR, MOHK, CARP 
 ```{r}
 #| fig-width: 9
 #| fig-height: 6
@@ -346,7 +346,8 @@ urch_sheep_join |>
   geom_path(color = kelp_pal["sub"]) + 
   geom_point(color = kelp_pal["title"]) +  
   # label each point with year 
-  geom_text_repel(aes(label = year), size = 3, color = kelp_pal["title"], fontface = "bold") + 
+#  geom_text_repel(aes(label = year), size = 3, color = kelp_pal["title"], fontface = "bold") + 
+  
   
   labs(y = "Purple Urchin abundance",
        x = "CA Sheephead abundance",
