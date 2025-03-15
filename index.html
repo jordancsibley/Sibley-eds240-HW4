@@ -81,17 +81,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#set-up" id="toc-set-up" class="nav-link active" data-scroll-target="#set-up">Set up</a></li>
-  <li><a href="#plan-for-final-visualization" id="toc-plan-for-final-visualization" class="nav-link" data-scroll-target="#plan-for-final-visualization">Plan for final visualization</a></li>
-  <li><a href="#infographic-theme-plan" id="toc-infographic-theme-plan" class="nav-link" data-scroll-target="#infographic-theme-plan">Infographic theme plan</a></li>
+  <li><a href="#project-goal" id="toc-project-goal" class="nav-link active" data-scroll-target="#project-goal">Project Goal</a></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
-  <li><a href="#plot-1.-timeseries-of-kelp-and-urchins" id="toc-plot-1.-timeseries-of-kelp-and-urchins" class="nav-link" data-scroll-target="#plot-1.-timeseries-of-kelp-and-urchins">Plot 1. Timeseries of kelp and urchins</a></li>
-  <li><a href="#plot-2.-kelp-densities-at-the-sites" id="toc-plot-2.-kelp-densities-at-the-sites" class="nav-link" data-scroll-target="#plot-2.-kelp-densities-at-the-sites">Plot 2. Kelp densities at the sites</a></li>
-  <li><a href="#plot-3-urchin-abundances-and-oneor-both-of-its-predators" id="toc-plot-3-urchin-abundances-and-oneor-both-of-its-predators" class="nav-link" data-scroll-target="#plot-3-urchin-abundances-and-oneor-both-of-its-predators">Plot 3: Urchin abundances and one/or both of its predators</a>
-  <ul class="collapse">
-  <li><a href="#connected-scatterplot-of-urchin-and-sheephead-abundances" id="toc-connected-scatterplot-of-urchin-and-sheephead-abundances" class="nav-link" data-scroll-target="#connected-scatterplot-of-urchin-and-sheephead-abundances">Connected scatterplot of urchin and sheephead abundances</a></li>
-  <li><a href="#alternative-plot-scatterplot-with-trend-line-sheepshead-vs-urchin" id="toc-alternative-plot-scatterplot-with-trend-line-sheepshead-vs-urchin" class="nav-link" data-scroll-target="#alternative-plot-scatterplot-with-trend-line-sheepshead-vs-urchin">Alternative plot: Scatterplot with Trend Line (Sheepshead vs Urchin)</a></li>
-  </ul></li>
+  <li><a href="#graphic-considerations" id="toc-graphic-considerations" class="nav-link" data-scroll-target="#graphic-considerations">Graphic Considerations</a></li>
+  <li><a href="#making-a-simple-bar-chart-more-appealing" id="toc-making-a-simple-bar-chart-more-appealing" class="nav-link" data-scroll-target="#making-a-simple-bar-chart-more-appealing">Making a simple bar chart more appealing</a></li>
+  <li><a href="#not-a-typical-timeseries-plot" id="toc-not-a-typical-timeseries-plot" class="nav-link" data-scroll-target="#not-a-typical-timeseries-plot">Not a typical timeseries plot</a></li>
+  <li><a href="#final-thoughts" id="toc-final-thoughts" class="nav-link" data-scroll-target="#final-thoughts">Final thoughts</a></li>
   <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources">Data Sources</a></li>
   </ul>
 </nav>
@@ -130,79 +125,89 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="set-up" class="level2">
-<h2 class="anchored" data-anchor-id="set-up">Set up</h2>
+<section id="project-goal" class="level2">
+<h2 class="anchored" data-anchor-id="project-goal">Project Goal</h2>
+<p>The goal of this project was to explore the most effective and creative ways to share data. During my time in the data visualization class at Bren, I learned to think more critically about how I design visualizations to ensure they are equitable and accessible to my audience. Factors like plot type, font choice, color schemes, and the ways in which plots are annotated or highlighted are just some of the many considerations that influence how effectively a visualization communicates its message.</p>
+<p>For this project, I used long-term survey data from the kelp forests of the Santa Barbara Channel to create an infographic that illustrates the relationship between Giant Kelp, one of its primary grazers, the Purple Urchin, and some of Purple urchins main predators, lobsters and a sheephead fish:</p>
+<p><img src="images/kelp_infographic.jpg" class="img-fluid"></p>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>The data used in this project comes from the <a href="https://sbclter.msi.ucsb.edu/">Santa Barbara Coastal Long-Term Ecological Research database</a>. I chose this data for many reasons, but one of the main reasons is that it’s one of my favorite databases. Compared to other LTER databases, the data from SBC LTER is exceptionally well-organized and clear. The datasets are in tidy format and include many different sampling projects, making it easy to combine and connect datasets in a coherent and meaningful way. Knowing some of the people responsible for collecting this data also deepens my appreciation for its quality.</p>
+<p>For this project, I used three datasets from the SBC LTER, covering the period from 2000 to 2024. All three datasets were collected during the late summer and fall months, ensuring consistency across sampling periods. These include:</p>
+<ol type="1">
+<li>Giant Kelp (Macrocystis pyrifera) Abundance Survey: Tracks the density and distribution of giant kelp.</li>
+<li>Invertebrate and Algal Density Survey: Contains data on purple urchins and spiny lobsters.</li>
+<li>Kelp Forest Fish Abundance Survey: Includes information on the California Sheephead.</li>
+</ol>
+<p>This data was ideal for my goal of exploring kelp forest ecosystem dynamics in Santa Barbara. The organized and consistent formatting allowed me to seamlessly combine datasets and even analyze species abundances across individual sites. I aimed to create a series of informative and visually engaging plots to help my intended audience—people interested in marine ecology, and specifically kelp forest ecosystems—gain a deeper understanding of some of the key species within the system.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># libraries </span></span>
+<details class="code-fold">
+<summary></summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load libraries </span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(showtext)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Import fonts </span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Syne"</span>, <span class="at">family =</span> <span class="st">"syne"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Inter"</span>, <span class="at">family =</span> <span class="st">"inter"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ........................Read in SBC LTER datasets............................ </span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>kelp_all <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">'data'</span>, <span class="st">'Annual_Kelp_All_Years_20240823.csv'</span>))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>invert_all <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">'data'</span>, <span class="st">'Annual_Quad_Swath_All_Years_20240823.csv'</span>))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>fish_all <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">'data'</span>, <span class="st">'Annual_fish_comb_20240823.csv'</span>))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>species_list <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">'data'</span>, <span class="st">'SBCLTER_Species_List_Master_20210113.csv'</span>))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#......................Clean data for plots......................</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>kelp_clean <span class="ot">&lt;-</span> kelp_all <span class="sc">|&gt;</span> </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SITE <span class="sc">!=</span> <span class="st">"SCDI"</span> <span class="sc">&amp;</span> SITE <span class="sc">!=</span> <span class="st">"SCTW"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">FRONDS =</span> <span class="sc">-</span><span class="dv">99999</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">HLD_DIAM =</span> <span class="sc">-</span><span class="dv">99999</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean invert data </span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>invert_clean <span class="ot">&lt;-</span> invert_all <span class="sc">|&gt;</span> </span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SITE <span class="sc">!=</span> <span class="st">"SCDI"</span> <span class="sc">&amp;</span> SITE <span class="sc">!=</span> <span class="st">"SCTW"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">SIZE =</span> <span class="sc">-</span><span class="dv">99999</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean fish data </span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>fish_clean <span class="ot">&lt;-</span> fish_all <span class="sc">|&gt;</span> </span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SITE <span class="sc">!=</span> <span class="st">"SCDI"</span> <span class="sc">&amp;</span> SITE <span class="sc">!=</span> <span class="st">"SCTW"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">SIZE =</span> <span class="sc">-</span><span class="dv">99999</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">COUNT =</span> <span class="sc">-</span><span class="dv">99999</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Purple Urchins </span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>purp_urchin <span class="ot">&lt;-</span> invert_clean <span class="sc">|&gt;</span> </span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientific_name <span class="sc">==</span> <span class="st">"Strongylocentrotus purpuratus"</span>) </span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Spiny lobsters</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>lobster <span class="ot">&lt;-</span> invert_clean <span class="sc">|&gt;</span> </span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientific_name <span class="sc">==</span> <span class="st">"Panulirus interruptus"</span>)</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co"># CA sheephead</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>sheephead <span class="ot">&lt;-</span> fish_clean <span class="sc">|&gt;</span> </span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientific_name <span class="sc">==</span> <span class="st">"Semicossyphus pulcher"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(count)) </span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co">#...........................Load fonts...........................</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Import fonts </span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Syne"</span>, <span class="at">family =</span> <span class="st">"syne"</span>)</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="fu">font_add_google</span>(<span class="at">name =</span> <span class="st">"Inter"</span>, <span class="at">family =</span> <span class="st">"inter"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
-<section id="plan-for-final-visualization" class="level2">
-<h2 class="anchored" data-anchor-id="plan-for-final-visualization">Plan for final visualization</h2>
-<ol type="1">
-<li>Which option do you plan to pursue? It’s okay if this has changed since HW #1.</li>
-</ol>
-<p><strong>I still plan to do the infographic.</strong></p>
-<ol start="2" type="1">
-<li>Restate your question(s). Has this changed at all since HW #1? If yes, how so?</li>
-</ol>
-<p><strong>What are the kelp forest ecosystem dynamics in the Santa Barbara Channel? </strong></p>
-<ol start="3" type="1">
-<li>Explain which variables from your data set(s) you will use to answer your question(s), and how.</li>
-</ol>
-<p><strong>The variables I care about from the data sets are year and count. All of the data sets are from the same time frame (2000-2024) with samples taken during the fall months and contain some column that involves some kind of count variable. For urchin, sheep head, and lobster, there is a column <code>count</code> that includes the number of species counted per transect per sample date per site. For the kelp data, there isn’t a specific count column, but the number of kelp plants samples can be extracted by grouping the site and year and adding the number of rows since each row gives information about an individual kelp frond. </strong></p>
-<ol start="4" type="1">
-<li>In HW #2, you created some exploratory data viz to better understand your data. You may already have some ideas of how you plan to formally visualize your data, but it’s incredibly helpful to look at visualizations by other creators for inspiration. Find at least two data visualizations that you could (potentially) borrow / adapt pieces from. Link to them or download and embed them into your .qmd file, and explain which elements you might borrow (e.g.&nbsp;the graphic form, legend design, layout, etc.).</li>
-</ol>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/infograph_inspo.jpg" class="img-fluid figure-img"></p>
-<figcaption>Source: UNEP https://www.grida.no/resources/15760</figcaption>
-</figure>
-</div>
-<p>I like this kelp forest info graphic! One part I like about is the simple colors and color species drawings. I also like the species composition plot at the bottom. This was a bit of a later find, but maybe I could explore if a plot like this would be a good idea for my info graphic.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/palmer_penguins.png" class="img-fluid figure-img"></p>
-<figcaption>Source: https://github.com/Ijeamakaanyene/tidytuesday</figcaption>
-</figure>
-</div>
-<p>I like how this plot takes something simple like a stacked bar chart, and makes it more interesting through the use of icons. I hope to include species icons/drawings in my info graphic to make my visualization more creative.</p>
-<ol start="5" type="1">
-<li>Hand-draw your anticipated visualizations, then take a photo of your drawing(s) and embed it in your rendered .qmd file – note that these are not exploratory visualizations, but rather your plan for your final visualizations that you will eventually polish and submit with HW #4. You should have: a sketch of your infographic (which should include at least three component visualizations) if you are pursuing option 1</li>
-</ol>
-<p><img src="images/infograph_layout.png" class="img-fluid"></p>
-<ol start="6" type="1">
-<li>Mock up all of your hand drawn visualizations using code. We understand that you will continue to iterate on these into HW #4 (particularly after receiving feedback), but by the end of HW #3, you should:</li>
-</ol>
-<ul>
-<li>have your data plotted (if you’re experimenting with a graphic form(s) that was not explicitly covered in class, we understand that this may take some more time to build; you should have as much put together as possible)</li>
-<li>use appropriate strategies to highlight / focus attention on a clear message</li>
-<li>include appropriate text such as titles, captions, axis labels</li>
-<li>experiment with colors and typefaces / fonts</li>
-<li>create a presentable / aesthetically-pleasing theme (e.g.&nbsp;(re)move gridlines / legends as appropriate, adjust font sizes, etc.)</li>
-</ul>
-</section>
-<section id="infographic-theme-plan" class="level2">
-<h2 class="anchored" data-anchor-id="infographic-theme-plan">Infographic theme plan</h2>
-<section id="fonts-for-plots" class="level4">
-<h4 class="anchored" data-anchor-id="fonts-for-plots">Fonts for plots</h4>
-<ul>
-<li>Titles = Syne</li>
-<li>plot font = Inter</li>
-</ul>
-</section>
+<section id="graphic-considerations" class="level2">
+<h2 class="anchored" data-anchor-id="graphic-considerations">Graphic Considerations</h2>
+<p>After exploring my data, I decided to develop a graphical theme to create a cohesive and visually appealing infographic. I knew I wanted the colors to reflect the species I was studying, so I used a color eye-drop tool to sample colors directly from images of the four species. From there, I built a complementary background color and selected additional shades to form a cohesive palette for my plots. To appeal to a wider audience and apply a equity and inclusion element to my inforgraphic, I made sure my palette is color blind friendly!</p>
+<p>For typography, I used one of my favorite websites, <a href="https://www.fontpair.co/">fontpair</a>, to find the perfect combination. I chose Syne Bold for titles because it’s simple to read yet offers a slightly elevated and modern look. For body text, I went with Inter Regular, a versatile sans-serif font specifically designed for screens. This combination gives the infographic a clean and professional aesthetic while ensuring readability within the plot elements. I never would have imagined how difficult but fun it can be to pick font faces!</p>
 <section id="palette" class="level4">
 <h4 class="anchored" data-anchor-id="palette">Palette</h4>
-<p>Confirmed color blind friendly!</p>
 <div class="cell">
+<details class="code-fold">
+<summary></summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>kelp_pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"kelp"</span> <span class="ot">=</span> <span class="st">"#8A8E3A"</span>, </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">"urchin"</span> <span class="ot">=</span> <span class="st">"#7E5AA0"</span>, </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>              <span class="st">"lobster"</span> <span class="ot">=</span> <span class="st">"#B74548"</span>, </span>
@@ -212,8 +217,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>              <span class="st">"sub2"</span> <span class="ot">=</span> <span class="st">"#307C88"</span>,</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>              <span class="st">"sub3"</span> <span class="ot">=</span> <span class="st">"#25616A"</span>,</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>              <span class="st">"background"</span> <span class="ot">=</span> <span class="st">"#144A52"</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>monochromeR<span class="sc">::</span><span class="fu">view_palette</span>(kelp_pal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>monochromeR<span class="sc">::</span><span class="fu">view_palette</span>(kelp_pal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -224,352 +229,104 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="data" class="level2">
-<h2 class="anchored" data-anchor-id="data">Data</h2>
-<p>All data comes from the SBC LTER Data Catalog</p>
+<section id="making-a-simple-bar-chart-more-appealing" class="level2">
+<h2 class="anchored" data-anchor-id="making-a-simple-bar-chart-more-appealing">Making a simple bar chart more appealing</h2>
+<p>One aspect of the data I wanted to explore was the total abundance of Giant Kelp at a select few sites located along the Santa Barbara shoreline. While the data does include information for all 11 sites, I decided to exclude some of the sites along the channel islands and a few that fell outside a certain range as a means to not overwhelm the audience. I found that he most effective way to display the total Giant Kelp indivdual surveyed at my selected sites was the simple bar chart. It is a great way to easily compare the values across the sites, and I ordered the sites to match up with a map in that the sites are arranged on the x-axis as they appear moving from west to east along the coastline.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in SBC LTER datasets </span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>kelp_all <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">'data'</span>, <span class="st">'Annual_Kelp_All_Years_20240823.csv'</span>))</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>invert_all <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">'data'</span>, <span class="st">'Annual_Quad_Swath_All_Years_20240823.csv'</span>))</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>fish_all <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">'data'</span>, <span class="st">'Annual_fish_comb_20240823.csv'</span>))</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>species_list <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">'data'</span>, <span class="st">'SBCLTER_Species_List_Master_20210113.csv'</span>))</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean kelp data </span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>kelp_clean <span class="ot">&lt;-</span> kelp_all <span class="sc">|&gt;</span> </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SITE <span class="sc">!=</span> <span class="st">"SCDI"</span> <span class="sc">&amp;</span> SITE <span class="sc">!=</span> <span class="st">"SCTW"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">FRONDS =</span> <span class="sc">-</span><span class="dv">99999</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">HLD_DIAM =</span> <span class="sc">-</span><span class="dv">99999</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
+<details class="code-fold">
+<summary>Prep data</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter kelp data for plot </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>kelp_bar <span class="ot">&lt;-</span> kelp_clean <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(site <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'NAPL'</span>, <span class="st">'IVEE'</span>, <span class="st">'GOLB'</span>, <span class="st">'ABUR'</span>, <span class="st">'MOHK'</span>, <span class="st">'CARP'</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2012</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(site, year) <span class="sc">|&gt;</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_count =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">protection =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    site <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"GOLB"</span>, <span class="st">"ABUR"</span>, <span class="st">"MOHK"</span>, <span class="st">"CARP"</span>) <span class="sc">~</span> <span class="st">"non-MPA"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    site <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"NAPL"</span>, <span class="st">"IVEE"</span>) <span class="sc">~</span> <span class="st">"MPA"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">site_name =</span> <span class="fu">case_when</span>(site <span class="sc">==</span> <span class="st">"GOLB"</span> <span class="sc">~</span> <span class="st">"Goleta Beach"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                               site <span class="sc">==</span> <span class="st">"ABUR"</span> <span class="sc">~</span> <span class="st">"Arroyo Burro"</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                               site <span class="sc">==</span> <span class="st">"MOHK"</span> <span class="sc">~</span> <span class="st">"Mohawk"</span>, </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                               site <span class="sc">==</span> <span class="st">"CARP"</span> <span class="sc">~</span> <span class="st">"Carpinteria Reef"</span>, </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                               site <span class="sc">==</span> <span class="st">"NAPL"</span> <span class="sc">~</span> <span class="st">"Naples"</span>, </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                               site <span class="sc">==</span> <span class="st">"IVEE"</span> <span class="sc">~</span> <span class="st">"Isla Vista"</span>))</span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean invert data </span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>invert_clean <span class="ot">&lt;-</span> invert_all <span class="sc">|&gt;</span> </span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SITE <span class="sc">!=</span> <span class="st">"SCDI"</span> <span class="sc">&amp;</span> SITE <span class="sc">!=</span> <span class="st">"SCTW"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">SIZE =</span> <span class="sc">-</span><span class="dv">99999</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean fish data </span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>fish_clean <span class="ot">&lt;-</span> fish_all <span class="sc">|&gt;</span> </span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SITE <span class="sc">!=</span> <span class="st">"SCDI"</span> <span class="sc">&amp;</span> SITE <span class="sc">!=</span> <span class="st">"SCTW"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">SIZE =</span> <span class="sc">-</span><span class="dv">99999</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  naniar<span class="sc">::</span><span class="fu">replace_with_na</span>(<span class="at">replace =</span> <span class="fu">list</span>(<span class="at">COUNT =</span> <span class="sc">-</span><span class="dv">99999</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Purple Urchins </span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>purp_urchin <span class="ot">&lt;-</span> invert_clean <span class="sc">|&gt;</span> </span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientific_name <span class="sc">==</span> <span class="st">"Strongylocentrotus purpuratus"</span>) </span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Spiny lobsters</span></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>lobster <span class="ot">&lt;-</span> invert_clean <span class="sc">|&gt;</span> </span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientific_name <span class="sc">==</span> <span class="st">"Panulirus interruptus"</span>)</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="co"># CA sheephead</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>sheephead <span class="ot">&lt;-</span> fish_clean <span class="sc">|&gt;</span> </span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientific_name <span class="sc">==</span> <span class="st">"Semicossyphus pulcher"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(count)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="plot-1.-timeseries-of-kelp-and-urchins" class="level2">
-<h2 class="anchored" data-anchor-id="plot-1.-timeseries-of-kelp-and-urchins">Plot 1. Timeseries of kelp and urchins</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#.......................Prep data for plot.......................</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter to NAPL and group by year </span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>kelp_total_count_NAPL <span class="ot">&lt;-</span> kelp_clean <span class="sc">|&gt;</span> </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(site <span class="sc">==</span> <span class="st">"NAPL"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_count =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="st">"Giant Kelp"</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter to NAPL </span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>urchin_total_count_NAPL <span class="ot">&lt;-</span> purp_urchin <span class="sc">|&gt;</span> </span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(site <span class="sc">==</span> <span class="st">"NAPL"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_count =</span> <span class="fu">sum</span>(count)) <span class="sc">|&gt;</span> </span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="st">"Purple Urchin"</span>)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Bind rows</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>napl_spp <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(kelp_total_count_NAPL, urchin_total_count_NAPL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the custom order</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>site_order <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Naples"</span>, <span class="st">"Isla Vista"</span>, <span class="st">"Goleta Beach"</span>, <span class="st">"Arroyo Burro"</span>, <span class="st">"Mohawk"</span>, <span class="st">"Carpinteria Reef"</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert site_name to a factor with the specified levels</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>kelp_bar<span class="sc">$</span>site_name <span class="ot">&lt;-</span> <span class="fu">factor</span>(kelp_bar<span class="sc">$</span>site_name, <span class="at">levels =</span> site_order)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a> <span class="co">#.......................Plot spp over time.......................</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(napl_spp, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> total_count, <span class="at">color =</span> species)) <span class="sc">+</span> </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># timeseries plot </span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.9</span>) <span class="sc">+</span> </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Giant Kelp"</span> <span class="ot">=</span> <span class="st">"#8A8E3A"</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Purple Urchin"</span> <span class="ot">=</span> <span class="st">"#7E5AA0"</span>)) <span class="sc">+</span> </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># labels </span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Giant Kelp and Purple Urchin Abundance"</span>,</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Samples taken at Naples Reef, Goleta CA. Purple urchin is one of Giant Kelp's primary grazers. </span><span class="sc">\n</span><span class="st">When urchin populations become too large, they can overgraze and essentially 'destroy' kelp forests."</span>,</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Species"</span>,</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total sample count"</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># theme elements </span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot text </span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">family =</span> <span class="st">"syne"</span>, <span class="at">color =</span> kelp_pal[<span class="st">"title"</span>]), </span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>, <span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub"</span>]), </span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub"</span>]),</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub"</span>]),</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># legend </span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub"</span>]), </span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>, <span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub"</span>]), </span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="co"># Move the legend to the bottom</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># background color + grid </span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> kelp_pal[<span class="st">"background"</span>]),</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color =</span> kelp_pal[<span class="st">"sub3"</span>]),</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(), <span class="co"># remove minor grid lines </span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># adjust margins </span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">10</span>)  <span class="co"># Top, Right, Bottom, Left</span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold">
+<summary>Create plot</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#..............Bar plot of kelp abundance per LTER site......................</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(kelp_bar, <span class="fu">aes</span>(<span class="at">x =</span> site_name, <span class="at">y =</span> total_count, <span class="at">label =</span> protection)) <span class="sc">+</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># bar plot separated by protection level </span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> kelp_pal[<span class="st">"sub3"</span>]) <span class="sc">+</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> protection, <span class="at">scales=</span><span class="st">"free"</span>, <span class="at">space =</span> <span class="st">"free"</span>, <span class="at">switch =</span> <span class="st">"x"</span>) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># labels </span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Total Giant Kelp Individuals"</span>, </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Sites with higher levels of protection </span><span class="sc">\n</span><span class="st"> yield high abundance of Giant Kelp"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"The values below represent the total count of Giant Kelp individual plants sampled by </span><span class="sc">\n</span><span class="st">the SBC LTER team from 2012-2024.  Naples and Isla Vista Marine Protected Areas</span><span class="sc">\n</span><span class="st"> (MPA) were established in 2012. Research suggests that MPAs help mitigate threats to </span><span class="sc">\n</span><span class="st">kelp forests including overfishing, herbivory, and habitat degradation leading to healthier </span><span class="sc">\n</span><span class="st"> kelp forests.  </span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data Source: Santa Barbara Coastal LTER"</span>) <span class="sc">+</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># theme elements </span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span> () <span class="sc">+</span>  </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># strip titles </span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.background =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.placement =</span> <span class="st">"outside"</span>, </span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># remove grid lines </span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># text elements </span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"syne"</span>, <span class="at">face =</span> <span class="st">"bold"</span>, </span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>                              <span class="at">size =</span> <span class="dv">14</span>, <span class="at">color =</span> kelp_pal[<span class="st">"title"</span>], <span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub"</span>], <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">size =</span> <span class="dv">7</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub2"</span>]),</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub"</span>]),</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub"</span>]),</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub2"</span>]), </span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub"</span>]), </span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>     <span class="co"># panel background color </span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> kelp_pal[<span class="st">"background"</span>]), </span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>     <span class="co"># adjust margins </span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">15</span>)  <span class="co"># Top, Right, Bottom, Left</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="864"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Things I might do/change for final:</p>
-<ul>
-<li>Find some valuable time points to highlight (MPA established, marine heat wave etc.)</li>
-<li>Rework the subtitle and maybe pick important words to highlight</li>
-</ul>
+<p>As a way to make this bar chart look more appealing, I decided to include some graphics of Giant Kelp on top of each bar as a way to make my final inforgraphic more fun! By utilizing Affinity Designer, a graphic design application, and Procreate, an iPad drawing app, I was able to create visualizations for the giant kelp, and was also inspired to draw the rest of my species as well. While I know I probabaly could have used clip art online, this project reopened by love for drawing and I have quickly relearned some old design skills. I enjoy how I was able to customize the drawings to match my overall theme and help bring the viewers in and put them in the environment, especially if they may not have been familiar with each species. Here are the drawings I produced, I am really proud of them!</p>
+<p>As a way to make this bar chart more visually appealing, I decided to include graphics of Giant Kelp on top of each bar to add a playful and engaging touch to my final infographic. I created these illustrations using Affinity Designer, a graphic design application, and Procreate, an iPad drawing app. While I could have easily used clip art from the internet, this project has sort of reignited my passion for drawing and gave me an opportunity to revisit and hone some old design skills. Plus, I am starting to learn some new skills in Affinity Designer. It is a such a cool way to further refine your plots that you developed in R as when it is rendered as PDF document, the elements of the plot can be altered in Designer. This is a warning message though as you have to be careful not to completely change up your plots as it can be easy to accidentally change the values or manipulate it in a way that no longer provides truthful results. All that to say if you are careful, it is such a great way to put together a visually appealing plot and is how I assembled by infographic. I’m still learning some aspects of the application, and I’m excited to explore how I can use vectorized drawing. This will help me create images that are crisp and scalable, unlike the pixelated results I sometimes get from drawing in Procreate. It’s something I’m still figuring out, but I’m looking forward to perfecting it!</p>
+<p>Inspired by this creative process, I decided to draw the rest of my species as well. I really enjoyed customizing the illustrations to match my overall theme, making the visualizations feel more cohesive and inviting. Plus, adding these hand-drawn elements helps immerse the viewer in the environment—especially for those who might not be familiar with each species.</p>
+<p>I’m really proud of how the drawings turned out! Here they are:</p>
+<p><img src="images/species.jpg" class="img-fluid"></p>
 </section>
-<section id="plot-2.-kelp-densities-at-the-sites" class="level2">
-<h2 class="anchored" data-anchor-id="plot-2.-kelp-densities-at-the-sites">Plot 2. Kelp densities at the sites</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter kelp data for plot </span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>kelp_bar <span class="ot">&lt;-</span> kelp_clean <span class="sc">|&gt;</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(site <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'NAPL'</span>, <span class="st">'IVEE'</span>, <span class="st">'GOLB'</span>, <span class="st">'ABUR'</span>, <span class="st">'MOHK'</span>, <span class="st">'CARP'</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2012</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(site, year) <span class="sc">|&gt;</span> </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_count =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">protection =</span> <span class="fu">case_when</span>(</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    site <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"GOLB"</span>, <span class="st">"ABUR"</span>, <span class="st">"MOHK"</span>, <span class="st">"CARP"</span>) <span class="sc">~</span> <span class="st">"non-MPA"</span>,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    site <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"NAPL"</span>, <span class="st">"IVEE"</span>) <span class="sc">~</span> <span class="st">"MPA"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">site_name =</span> <span class="fu">case_when</span>(site <span class="sc">==</span> <span class="st">"GOLB"</span> <span class="sc">~</span> <span class="st">"Goleta Beach"</span>,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                               site <span class="sc">==</span> <span class="st">"ABUR"</span> <span class="sc">~</span> <span class="st">"Arroyo Burro"</span>,</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                               site <span class="sc">==</span> <span class="st">"MOHK"</span> <span class="sc">~</span> <span class="st">"Mohawk"</span>, </span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                               site <span class="sc">==</span> <span class="st">"CARP"</span> <span class="sc">~</span> <span class="st">"Carpinteria Reef"</span>, </span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                               site <span class="sc">==</span> <span class="st">"NAPL"</span> <span class="sc">~</span> <span class="st">"Naples"</span>, </span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>                               site <span class="sc">==</span> <span class="st">"IVEE"</span> <span class="sc">~</span> <span class="st">"Isla Vista"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Sites order based on map location: NAPL, IVEE, GOLB, ABUR, MOHK, CARP</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a> <span class="co">#..............Bar plot of kelp abundance per LTER site......................</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(kelp_bar, <span class="fu">aes</span>(<span class="at">x =</span> site_name, <span class="at">y =</span> total_count, <span class="at">label =</span> protection)) <span class="sc">+</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># bar plot separated by protection level </span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> kelp_pal[<span class="st">"sub3"</span>]) <span class="sc">+</span> </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> protection, <span class="at">scales=</span><span class="st">"free"</span>, <span class="at">space =</span> <span class="st">"free"</span>, <span class="at">switch =</span> <span class="st">"x"</span>) <span class="sc">+</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># labels </span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, </span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Total cumulative survey count"</span>, </span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Giant Kelp Survey Counts in SBC LTER Mainland Sites (2012-2024)"</span>,</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Naples and Isla Vista Marine Protected Areas (MPAs) were established in 2012. Research suggests MPAs help </span><span class="sc">\n</span><span class="st">mitigate threats to kelp forests, including overfishing, herbivory, and habitat degradation, and can enhance kelp biomass "</span>,</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data Source: Santa Barbara Coastal LTER"</span>) <span class="sc">+</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># theme elements </span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span> () <span class="sc">+</span>  </span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># strip titles </span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.background =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.placement =</span> <span class="st">"outside"</span>, </span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># remove grid lines </span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># text elements </span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"syne"</span>, <span class="at">face =</span> <span class="st">"bold"</span>, </span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>                              <span class="at">size =</span> <span class="dv">14</span>, <span class="at">color =</span> kelp_pal[<span class="st">"title"</span>], <span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub"</span>], <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">size =</span> <span class="dv">7</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub2"</span>]),</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub"</span>]),</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub2"</span>]),</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub2"</span>]), </span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub"</span>]), </span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>     <span class="co"># panel background color </span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> kelp_pal[<span class="st">"background"</span>]), </span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>     <span class="co"># adjust margins </span></span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">15</span>)  <span class="co"># Top, Right, Bottom, Left</span></span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="864"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Here is what I imagine for the infographic. I drew the kelp design in affinity designer and cropped or shorten it to fit in each of the bars. I might rework the drawing a bit but I like the way it turned out!</p>
-<p>I also don’t know if I like the order of the sites on the x-axis. Maybe I could keep them in their separated groups, but reorder the sites based on where the show up on the map from west to east so it is easier to place them on the reference map.</p>
-<p><img src="images/kelp_barplot_draw.png" class="img-fluid"></p>
+<section id="not-a-typical-timeseries-plot" class="level2">
+<h2 class="anchored" data-anchor-id="not-a-typical-timeseries-plot">Not a typical timeseries plot</h2>
+<p>After creating my timeseries plot of Purple urchins and Giant Kelp, I knew I wanted to do another plot that explores urchin populations along with their predators, sheephead and lobster, over time. However, I didn’t want to just make another simple timeseries plot. I wanted to push myself to try a different plot that still communicated the same information. That is when I found the connected scatter plot. This plot works by plotting the abundance of one species on one axis against the abundance of the other species to produce a scatter plot. Each plot represent the abundances for the particular species in a given year. You can then connect the points in year order to track the abundaces over time.</p>
+<p>At first I was hesitant to include this plot. I feared it was confusing (and it really was before I filtered to a smaller timeframe) and that my audience would not grasp what a particular point on the plot really represented. However, with a bit of trial and error and some advice for my classmates, I decided to go for it. Some elements I included to make it easier to understand was the inclusion of an increasing area bar along each axis that allows one to better visualize that the higher values on each axis equated to higher abundance levels. Additionally, I made the plot caption point out the temporal trend as a means to draw the readers eye to begining looking at the 2012 point on the graph first. I also included my drawings of the species near the axes to reiterate which species were included in this plot. I am still unsure if I like this kind of plot, but I think it was a good challenge.</p>
+<p><img src="images/plot3.png" class="img-fluid"></p>
 </section>
-<section id="plot-3-urchin-abundances-and-oneor-both-of-its-predators" class="level2">
-<h2 class="anchored" data-anchor-id="plot-3-urchin-abundances-and-oneor-both-of-its-predators">Plot 3: Urchin abundances and one/or both of its predators</h2>
-<p>I wasn’t exactly sure my direction for this plot. I was struggling with figuring out to display information about sheephead and lobster against urchin abundances (and kelp?) but they are on very different scales with lobster and sheephead being much lower (makes sense higher trophic level)</p>
-<p>Ideas for how to present this information?</p>
-<ul>
-<li>proportion of species adjusted by year with largest population over time? (kind of like the opacity value in HW#1 viz)</li>
-<li>percentage of total counts</li>
-<li>Stacked percentage bar chart</li>
-</ul>
-<p>Suggestion: connected scatter plot like from the lecture in 5.1</p>
-<p>X axis urchin abundance y axis sheephead abundance plots annotated by year</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#.......................Prep data for plot.......................</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># urchins, kelp, sheephead </span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>urchin_abund <span class="ot">&lt;-</span> purp_urchin <span class="sc">|&gt;</span> </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">urchin_count =</span> <span class="fu">sum</span>(count)) </span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>sheephead_abund <span class="ot">&lt;-</span> sheephead <span class="sc">|&gt;</span> </span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sheephead_count =</span> <span class="fu">sum</span>(count)) </span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>lobster_abund <span class="ot">&lt;-</span> lobster <span class="sc">|&gt;</span> </span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">lobster_count =</span> <span class="fu">sum</span>(count))</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Join by year </span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>urch_sheep_join <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(urchin_abund, sheephead_abund, <span class="at">by =</span> <span class="st">"year"</span>)</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>urch_shp_lobs_join <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(urch_sheep_join, lobster_abund, <span class="at">by =</span> <span class="st">"year"</span>)</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Try all years to begin but maybe filter to smaller year amount if it is two much to look at </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<section id="connected-scatterplot-of-urchin-and-sheephead-abundances" class="level3">
-<h3 class="anchored" data-anchor-id="connected-scatterplot-of-urchin-and-sheephead-abundances">Connected scatterplot of urchin and sheephead abundances</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter to 2012-2024</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>urch_sheep_join <span class="sc">|&gt;</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2012</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># scatter plot </span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">y =</span> urchin_count, <span class="at">x =</span> sheephead_count)) <span class="sc">+</span> </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>(<span class="at">color =</span> kelp_pal[<span class="st">"sub"</span>]) <span class="sc">+</span> </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> kelp_pal[<span class="st">"title"</span>]) <span class="sc">+</span>  </span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># label each point with year </span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  geom_text_repel(aes(label = year), size = 3, color = kelp_pal["title"], fontface = "bold") + </span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Purple Urchin abundance"</span>,</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"CA Sheephead abundance"</span>,</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Purple Urchin vs CA Sheephead Abundance over time"</span>, </span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Abundances are based on the cumulative observations at the six LTER sites."</span>)<span class="sc">+</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># theme elements </span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>     <span class="co"># plot text </span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>, </span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>                              <span class="at">family =</span> <span class="st">"syne"</span>, <span class="at">color =</span> kelp_pal[<span class="st">"title"</span>], <span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>, <span class="at">family =</span> <span class="st">"inter"</span>, </span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">color =</span> kelp_pal[<span class="st">"sub"</span>], <span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub"</span>]),</span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub2"</span>]),</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># remove minor grid lines </span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Change major grid lines to a dotted line and color</span></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color =</span> kelp_pal[<span class="st">"sub2"</span>], <span class="at">linetype =</span> <span class="st">"dotted"</span>),</span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># panel background color </span></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> kelp_pal[<span class="st">"background"</span>]), </span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># adjust margins </span></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">15</span>)  <span class="co"># Top, Right, Bottom, Left</span></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>At first this plot looked crazy, but once I filtered to a smaller time frame and then swapped the x and y axis, now is follows a clearer path. Especially since the earliest time frame is on the left, it reads cleaner. Start to see that when urchin is high, sheephead is low and vice versa.</p>
-<p>I am worried if this plot is maybe too confusing. However, since my previous plots are pretty simple maybe it could be ok?</p>
-<p>If I do go forward with this plot, I also might change it from the total count of observations per year to the mean count (average count per site)</p>
-</section>
-<section id="alternative-plot-scatterplot-with-trend-line-sheepshead-vs-urchin" class="level3">
-<h3 class="anchored" data-anchor-id="alternative-plot-scatterplot-with-trend-line-sheepshead-vs-urchin">Alternative plot: Scatterplot with Trend Line (Sheepshead vs Urchin)</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># scatter plot with lm trend line </span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(urch_sheep_join, <span class="fu">aes</span>(<span class="at">x =</span> sheephead_count, <span class="at">y =</span> urchin_count)) <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> kelp_pal[<span class="st">"title"</span>]) <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub2"</span>]) <span class="sc">+</span>  <span class="co"># Linear trend line</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Relationship Between Sheepshead &amp; Urchin Abundance"</span>,</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Update subtitle, something about relationship and trendline"</span>,</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Sheepshead Abundance"</span>,</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Urchin Abundance"</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># theme elements </span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot text </span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>, </span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>                              <span class="at">family =</span> <span class="st">"syne"</span>, <span class="at">color =</span> kelp_pal[<span class="st">"title"</span>], <span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>, <span class="at">family =</span> <span class="st">"inter"</span>, </span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">color =</span> kelp_pal[<span class="st">"sub"</span>], <span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub"</span>]),</span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"inter"</span>, <span class="at">color =</span> kelp_pal[<span class="st">"sub2"</span>]),</span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># remove minor grid lines </span></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Change major grid lines to a dotted line and color</span></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color =</span> kelp_pal[<span class="st">"sub2"</span>], <span class="at">linetype =</span> <span class="st">"dotted"</span>),</span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># panel background color </span></span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> kelp_pal[<span class="st">"background"</span>]), </span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># adjust margins </span></span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">15</span>)  <span class="co"># Top, Right, Bottom, Left</span></span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>I feel that these plots are effective in showing the predator prey relationship, but I wonder if they are maybe a bit disconnected from the other plots and maybe a bit too statistical. However, if the previous plot type is too much this might be a good alternative.</p>
-<ol start="7" type="1">
-<li>Answer the following questions:</li>
-</ol>
-<ol type="a">
-<li>What challenges did you encounter or anticipate encountering as you continue to build / iterate on your visualizations in R? If you struggled with mocking up any of your three visualizations (from #6, above), describe those challenges here.</li>
-</ol>
-<p><strong>I described some of my challenges with the third plot above. Another issue I was running into is figuring out a way to effective export my plots. I tried a couple strategies from the Week 6 discussion section, but I ran into some weird problems. I found it was easier for me to just render the doc and then save the plot by right clicking on it. I want to dive a bit deeper into that discussion section material to learn how to export my plots.</strong></p>
-<ol start="2" type="a">
-<li>What ggplot extension tools / packages do you need to use to build your visualizations? Are there any that we haven’t covered in class that you’ll be learning how to use for your visualizations?</li>
-</ol>
-<p><strong>To make the connected scatterplot, I used a package called <code>ggrepel</code> to make the labels of the year. </strong></p>
-<ol start="3" type="a">
-<li>What feedback do you need from the instructional team and / or your peers to ensure that your intended message is clear?</li>
-</ol>
-<p><strong>I would love some feedback on my third plot! Also I had gotten some feedback that my color scheme might be a bit dark. I kind of like the way it looks but if it truly is too dark it would be super easy to go in an adjust. </strong></p>
-</section>
+<section id="final-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="final-thoughts">Final thoughts</h2>
+<p>I thoroughly enjoyed this project. It’s incredible to see how much progress I’ve made since the beginning of the quarter when this project was first assigned. In such a short amount of time, I’ve noticed a significant improvement in my ability to both create and critique data visualizations. I find myself more critically analyzing graphs and plots, whether in scientific papers, online, or even revisiting some of my past work. I hope to carry what I’ve learned throughout this process into my future work, always striving to create data visualizations that are not only visually appealing but also clear, accurate, and easy to understand!</p>
 </section>
 <section id="data-sources" class="level2">
 <h2 class="anchored" data-anchor-id="data-sources">Data Sources</h2>
